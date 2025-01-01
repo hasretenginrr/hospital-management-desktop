@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c830f57e2ce243fa90b99e304d097d6f" Name="Diagram1" ZoomLevel="118">
+        <EntityTypeShape EntityType="HastaneProjeModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HastaneProjeModel.Tbl_Branslar" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="HastaneProjeModel.Tbl_Doktorlar" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="HastaneProjeModel.Tbl_Hastalar" Width="1.5" PointX="3" PointY="8.25" />
+        <EntityTypeShape EntityType="HastaneProjeModel.Tbl_ilaclar" Width="1.5" PointX="5.25" PointY="5.75" />
+        <EntityTypeShape EntityType="HastaneProjeModel.Tbl_Kayitlar" Width="1.5" PointX="7.5" PointY="1.75" />
+        <EntityTypeShape EntityType="HastaneProjeModel.Tbl_Randevular" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="HastaneProjeModel.Tbl_Sekreter" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="HastaneProjeModel.vDoktorlar" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="HastaneProjeModel.vRandevu" Width="1.5" PointX="9.75" PointY="0.75" />
+        <AssociationConnector Association="HastaneProjeModel.FK_Tbl_Doktorlar_Tbl_Branslar" />
+        <AssociationConnector Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Doktorlar1" />
+        <AssociationConnector Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Hastalar" />
+        <AssociationConnector Association="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_ilaclar" />
+        <AssociationConnector Association="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_Randevular" />
+        <AssociationConnector Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Sekreter" />
+        <EntityTypeShape EntityType="HastaneProjeModel.vIlaclar" Width="1.5" PointX="1" PointY="5.25" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

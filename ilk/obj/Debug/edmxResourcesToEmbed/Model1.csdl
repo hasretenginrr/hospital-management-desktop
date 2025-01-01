@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HastaneProjeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="HastaneProjeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="HastaneProjeModel.sysdiagrams" />
+    <EntitySet Name="Tbl_Branslar" EntityType="HastaneProjeModel.Tbl_Branslar" />
+    <EntitySet Name="Tbl_Doktorlar" EntityType="HastaneProjeModel.Tbl_Doktorlar" />
+    <EntitySet Name="Tbl_Hastalar" EntityType="HastaneProjeModel.Tbl_Hastalar" />
+    <EntitySet Name="Tbl_ilaclar" EntityType="HastaneProjeModel.Tbl_ilaclar" />
+    <EntitySet Name="Tbl_Kayitlar" EntityType="HastaneProjeModel.Tbl_Kayitlar" />
+    <EntitySet Name="Tbl_Randevular" EntityType="HastaneProjeModel.Tbl_Randevular" />
+    <EntitySet Name="Tbl_Sekreter" EntityType="HastaneProjeModel.Tbl_Sekreter" />
+    <EntitySet Name="vDoktorlar" EntityType="HastaneProjeModel.vDoktorlar" />
+    <EntitySet Name="vRandevu" EntityType="HastaneProjeModel.vRandevu" />
+    <AssociationSet Name="FK_Tbl_Doktorlar_Tbl_Branslar" Association="HastaneProjeModel.FK_Tbl_Doktorlar_Tbl_Branslar">
+      <End Role="Tbl_Branslar" EntitySet="Tbl_Branslar" />
+      <End Role="Tbl_Doktorlar" EntitySet="Tbl_Doktorlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Randevular_Tbl_Doktorlar1" Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Doktorlar1">
+      <End Role="Tbl_Doktorlar" EntitySet="Tbl_Doktorlar" />
+      <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Randevular_Tbl_Hastalar" Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Hastalar">
+      <End Role="Tbl_Hastalar" EntitySet="Tbl_Hastalar" />
+      <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Kayitlar_Tbl_ilaclar" Association="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_ilaclar">
+      <End Role="Tbl_ilaclar" EntitySet="Tbl_ilaclar" />
+      <End Role="Tbl_Kayitlar" EntitySet="Tbl_Kayitlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Kayitlar_Tbl_Randevular" Association="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_Randevular">
+      <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+      <End Role="Tbl_Kayitlar" EntitySet="Tbl_Kayitlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Randevular_Tbl_Sekreter" Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Sekreter">
+      <End Role="Tbl_Sekreter" EntitySet="Tbl_Sekreter" />
+      <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+    </AssociationSet>
+    <EntitySet Name="vIlaclar" EntityType="HastaneProjeModel.vIlaclar" />
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Branslar">
+    <Key>
+      <PropertyRef Name="Bransid" />
+    </Key>
+    <Property Name="Bransid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BransAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tbl_Doktorlar" Relationship="HastaneProjeModel.FK_Tbl_Doktorlar_Tbl_Branslar" FromRole="Tbl_Branslar" ToRole="Tbl_Doktorlar" />
+  </EntityType>
+  <EntityType Name="Tbl_Doktorlar">
+    <Key>
+      <PropertyRef Name="Doktorid" />
+    </Key>
+    <Property Name="Doktorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DoktorAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Bransid" Type="Int32" />
+    <Property Name="DoktorTc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="DoktorSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MuaneSayisi" Type="Int32" />
+    <Property Name="DoktorDurum" Type="Boolean" />
+    <NavigationProperty Name="Tbl_Branslar" Relationship="HastaneProjeModel.FK_Tbl_Doktorlar_Tbl_Branslar" FromRole="Tbl_Doktorlar" ToRole="Tbl_Branslar" />
+    <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Doktorlar1" FromRole="Tbl_Doktorlar" ToRole="Tbl_Randevular" />
+  </EntityType>
+  <EntityType Name="Tbl_Hastalar">
+    <Key>
+      <PropertyRef Name="Hastaid" />
+    </Key>
+    <Property Name="Hastaid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HastaAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HastaTc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="HastaTelefon" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="HastaSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HastaCinsiyet" Type="Byte" />
+    <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Hastalar" FromRole="Tbl_Hastalar" ToRole="Tbl_Randevular" />
+  </EntityType>
+  <EntityType Name="Tbl_ilaclar">
+    <Key>
+      <PropertyRef Name="ilacid" />
+    </Key>
+    <Property Name="ilacid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ilacAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tbl_Kayitlar" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_ilaclar" FromRole="Tbl_ilaclar" ToRole="Tbl_Kayitlar" />
+  </EntityType>
+  <EntityType Name="Tbl_Kayitlar">
+    <Key>
+      <PropertyRef Name="kayitid" />
+    </Key>
+    <Property Name="kayitid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Randevuid" Type="Int32" />
+    <Property Name="ilacid" Type="Int32" />
+    <NavigationProperty Name="Tbl_ilaclar" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_ilaclar" FromRole="Tbl_Kayitlar" ToRole="Tbl_ilaclar" />
+    <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_Randevular" FromRole="Tbl_Kayitlar" ToRole="Tbl_Randevular" />
+  </EntityType>
+  <EntityType Name="Tbl_Randevular">
+    <Key>
+      <PropertyRef Name="Randevuid" />
+    </Key>
+    <Property Name="Randevuid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RandevuTarih" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RandevuSaat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Doktorid" Type="Int32" />
+    <Property Name="RandevuDurum" Type="Boolean" />
+    <Property Name="Sekreterid" Type="Int32" />
+    <Property Name="Hastaid" Type="Int32" />
+    <Property Name="HastaSikayet" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="HastaTeshis" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tbl_Doktorlar" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Doktorlar1" FromRole="Tbl_Randevular" ToRole="Tbl_Doktorlar" />
+    <NavigationProperty Name="Tbl_Hastalar" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Hastalar" FromRole="Tbl_Randevular" ToRole="Tbl_Hastalar" />
+    <NavigationProperty Name="Tbl_Kayitlar" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_Randevular" FromRole="Tbl_Randevular" ToRole="Tbl_Kayitlar" />
+    <NavigationProperty Name="Tbl_Sekreter" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Sekreter" FromRole="Tbl_Randevular" ToRole="Tbl_Sekreter" />
+  </EntityType>
+  <EntityType Name="Tbl_Sekreter">
+    <Key>
+      <PropertyRef Name="Sekreterid" />
+    </Key>
+    <Property Name="Sekreterid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SekreterAdSoyad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SekreterTc" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="SekreterSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Sekreter" FromRole="Tbl_Sekreter" ToRole="Tbl_Randevular" />
+  </EntityType>
+  <EntityType Name="vDoktorlar">
+    <Key>
+      <PropertyRef Name="Doktorid" />
+    </Key>
+    <Property Name="DoktorAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DoktorTc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="DoktorSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="BransAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Doktorid" Type="Int32" Nullable="false" />
+    <Property Name="MuaneSayisi" Type="Int32" />
+    <Property Name="DoktorDurum" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="vRandevu">
+    <Key>
+      <PropertyRef Name="Randevuid" />
+      <PropertyRef Name="Doktorid" />
+      <PropertyRef Name="Hastaid" />
+    </Key>
+    <Property Name="DoktorAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HastaAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Randevuid" Type="Int32" Nullable="false" />
+    <Property Name="RandevuTarih" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RandevuSaat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RandevuDurum" Type="Boolean" />
+    <Property Name="BransAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Doktorid" Type="Int32" Nullable="false" />
+    <Property Name="Hastaid" Type="Int32" Nullable="false" />
+    <Property Name="DoktorDurum" Type="Boolean" />
+    <Property Name="HastaSikayet" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="HastaTeshis" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Tbl_Doktorlar_Tbl_Branslar">
+    <End Type="HastaneProjeModel.Tbl_Branslar" Role="Tbl_Branslar" Multiplicity="0..1" />
+    <End Type="HastaneProjeModel.Tbl_Doktorlar" Role="Tbl_Doktorlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Branslar">
+        <PropertyRef Name="Bransid" />
+      </Principal>
+      <Dependent Role="Tbl_Doktorlar">
+        <PropertyRef Name="Bransid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Randevular_Tbl_Doktorlar1">
+    <End Type="HastaneProjeModel.Tbl_Doktorlar" Role="Tbl_Doktorlar" Multiplicity="0..1" />
+    <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Doktorlar">
+        <PropertyRef Name="Doktorid" />
+      </Principal>
+      <Dependent Role="Tbl_Randevular">
+        <PropertyRef Name="Doktorid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Randevular_Tbl_Hastalar">
+    <End Type="HastaneProjeModel.Tbl_Hastalar" Role="Tbl_Hastalar" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Hastalar">
+        <PropertyRef Name="Hastaid" />
+      </Principal>
+      <Dependent Role="Tbl_Randevular">
+        <PropertyRef Name="Hastaid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Kayitlar_Tbl_ilaclar">
+    <End Type="HastaneProjeModel.Tbl_ilaclar" Role="Tbl_ilaclar" Multiplicity="0..1" />
+    <End Type="HastaneProjeModel.Tbl_Kayitlar" Role="Tbl_Kayitlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_ilaclar">
+        <PropertyRef Name="ilacid" />
+      </Principal>
+      <Dependent Role="Tbl_Kayitlar">
+        <PropertyRef Name="ilacid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Kayitlar_Tbl_Randevular">
+    <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="0..1" />
+    <End Type="HastaneProjeModel.Tbl_Kayitlar" Role="Tbl_Kayitlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Randevular">
+        <PropertyRef Name="Randevuid" />
+      </Principal>
+      <Dependent Role="Tbl_Kayitlar">
+        <PropertyRef Name="Randevuid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Randevular_Tbl_Sekreter">
+    <End Type="HastaneProjeModel.Tbl_Sekreter" Role="Tbl_Sekreter" Multiplicity="0..1" />
+    <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Sekreter">
+        <PropertyRef Name="Sekreterid" />
+      </Principal>
+      <Dependent Role="Tbl_Randevular">
+        <PropertyRef Name="Sekreterid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vIlaclar">
+    <Key>
+      <PropertyRef Name="ilacid" />
+      <PropertyRef Name="kayitid" />
+    </Key>
+    <Property Name="ilacid" Type="Int32" Nullable="false" />
+    <Property Name="ilacAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kayitid" Type="Int32" Nullable="false" />
+    <Property Name="Randevuid" Type="Int32" />
+  </EntityType>
+</Schema>

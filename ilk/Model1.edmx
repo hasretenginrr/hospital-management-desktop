@@ -1,0 +1,678 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HastaneProjeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Branslar">
+          <Key>
+            <PropertyRef Name="Bransid" />
+          </Key>
+          <Property Name="Bransid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BransAd" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Tbl_Doktorlar">
+          <Key>
+            <PropertyRef Name="Doktorid" />
+          </Key>
+          <Property Name="Doktorid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoktorAdSoyad" Type="varchar" MaxLength="100" />
+          <Property Name="Bransid" Type="int" />
+          <Property Name="DoktorTc" Type="varchar" MaxLength="15" />
+          <Property Name="DoktorSifre" Type="varchar" MaxLength="10" />
+          <Property Name="MuaneSayisi" Type="int" />
+          <Property Name="DoktorDurum" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_Hastalar">
+          <Key>
+            <PropertyRef Name="Hastaid" />
+          </Key>
+          <Property Name="Hastaid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HastaAdSoyad" Type="varchar" MaxLength="100" />
+          <Property Name="HastaTc" Type="varchar" MaxLength="15" />
+          <Property Name="HastaTelefon" Type="varchar" MaxLength="15" />
+          <Property Name="HastaSifre" Type="varchar" MaxLength="10" />
+          <Property Name="HastaCinsiyet" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Tbl_ilaclar">
+          <Key>
+            <PropertyRef Name="ilacid" />
+          </Key>
+          <Property Name="ilacid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ilacAd" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_Kayitlar">
+          <Key>
+            <PropertyRef Name="kayitid" />
+          </Key>
+          <Property Name="kayitid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Randevuid" Type="int" />
+          <Property Name="ilacid" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Randevular">
+          <Key>
+            <PropertyRef Name="Randevuid" />
+          </Key>
+          <Property Name="Randevuid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RandevuTarih" Type="varchar" MaxLength="10" />
+          <Property Name="RandevuSaat" Type="varchar" MaxLength="10" />
+          <Property Name="Doktorid" Type="int" />
+          <Property Name="RandevuDurum" Type="bit" />
+          <Property Name="Sekreterid" Type="int" />
+          <Property Name="Hastaid" Type="int" />
+          <Property Name="HastaSikayet" Type="varchar" MaxLength="250" />
+          <Property Name="HastaTeshis" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Tbl_Sekreter">
+          <Key>
+            <PropertyRef Name="Sekreterid" />
+          </Key>
+          <Property Name="Sekreterid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SekreterAdSoyad" Type="varchar" MaxLength="20" />
+          <Property Name="SekreterTc" Type="char" MaxLength="11" />
+          <Property Name="SekreterSifre" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HastaneProje.dbo.vDoktorlar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vDoktorlar">
+          <Key>
+            <PropertyRef Name="Doktorid" />
+          </Key>
+          <Property Name="DoktorAdSoyad" Type="varchar" MaxLength="100" />
+          <Property Name="DoktorTc" Type="varchar" MaxLength="15" />
+          <Property Name="DoktorSifre" Type="varchar" MaxLength="10" />
+          <Property Name="BransAd" Type="varchar" MaxLength="30" />
+          <Property Name="Doktorid" Type="int" Nullable="false" />
+          <Property Name="MuaneSayisi" Type="int" />
+          <Property Name="DoktorDurum" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HastaneProje.dbo.vIlaclar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vIlaclar">
+          <Key>
+            <PropertyRef Name="ilacid" />
+            <PropertyRef Name="kayitid" />
+          </Key>
+          <Property Name="ilacid" Type="int" Nullable="false" />
+          <Property Name="ilacAd" Type="varchar" MaxLength="50" />
+          <Property Name="kayitid" Type="int" Nullable="false" />
+          <Property Name="Randevuid" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HastaneProje.dbo.vRandevu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRandevu">
+          <Key>
+            <PropertyRef Name="Randevuid" />
+            <PropertyRef Name="Doktorid" />
+            <PropertyRef Name="Hastaid" />
+          </Key>
+          <Property Name="DoktorAdSoyad" Type="varchar" MaxLength="100" />
+          <Property Name="HastaAdSoyad" Type="varchar" MaxLength="100" />
+          <Property Name="Randevuid" Type="int" Nullable="false" />
+          <Property Name="RandevuTarih" Type="varchar" MaxLength="10" />
+          <Property Name="RandevuSaat" Type="varchar" MaxLength="10" />
+          <Property Name="RandevuDurum" Type="bit" />
+          <Property Name="BransAd" Type="varchar" MaxLength="30" />
+          <Property Name="Doktorid" Type="int" Nullable="false" />
+          <Property Name="Hastaid" Type="int" Nullable="false" />
+          <Property Name="DoktorDurum" Type="bit" />
+          <Property Name="HastaSikayet" Type="varchar" MaxLength="250" />
+          <Property Name="HastaTeshis" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_Tbl_Doktorlar_Tbl_Branslar">
+          <End Role="Tbl_Branslar" Type="Self.Tbl_Branslar" Multiplicity="0..1" />
+          <End Role="Tbl_Doktorlar" Type="Self.Tbl_Doktorlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Branslar">
+              <PropertyRef Name="Bransid" />
+            </Principal>
+            <Dependent Role="Tbl_Doktorlar">
+              <PropertyRef Name="Bransid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Kayitlar_Tbl_ilaclar">
+          <End Role="Tbl_ilaclar" Type="Self.Tbl_ilaclar" Multiplicity="0..1" />
+          <End Role="Tbl_Kayitlar" Type="Self.Tbl_Kayitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ilaclar">
+              <PropertyRef Name="ilacid" />
+            </Principal>
+            <Dependent Role="Tbl_Kayitlar">
+              <PropertyRef Name="ilacid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Kayitlar_Tbl_Randevular">
+          <End Role="Tbl_Randevular" Type="Self.Tbl_Randevular" Multiplicity="0..1" />
+          <End Role="Tbl_Kayitlar" Type="Self.Tbl_Kayitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Randevular">
+              <PropertyRef Name="Randevuid" />
+            </Principal>
+            <Dependent Role="Tbl_Kayitlar">
+              <PropertyRef Name="Randevuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Randevular_Tbl_Doktorlar1">
+          <End Role="Tbl_Doktorlar" Type="Self.Tbl_Doktorlar" Multiplicity="0..1" />
+          <End Role="Tbl_Randevular" Type="Self.Tbl_Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Doktorlar">
+              <PropertyRef Name="Doktorid" />
+            </Principal>
+            <Dependent Role="Tbl_Randevular">
+              <PropertyRef Name="Doktorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Randevular_Tbl_Hastalar">
+          <End Role="Tbl_Hastalar" Type="Self.Tbl_Hastalar" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_Randevular" Type="Self.Tbl_Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Hastalar">
+              <PropertyRef Name="Hastaid" />
+            </Principal>
+            <Dependent Role="Tbl_Randevular">
+              <PropertyRef Name="Hastaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Randevular_Tbl_Sekreter">
+          <End Role="Tbl_Sekreter" Type="Self.Tbl_Sekreter" Multiplicity="0..1" />
+          <End Role="Tbl_Randevular" Type="Self.Tbl_Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Sekreter">
+              <PropertyRef Name="Sekreterid" />
+            </Principal>
+            <Dependent Role="Tbl_Randevular">
+              <PropertyRef Name="Sekreterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HastaneProjeModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Branslar" EntityType="Self.Tbl_Branslar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Doktorlar" EntityType="Self.Tbl_Doktorlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Hastalar" EntityType="Self.Tbl_Hastalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_ilaclar" EntityType="Self.Tbl_ilaclar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Kayitlar" EntityType="Self.Tbl_Kayitlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Randevular" EntityType="Self.Tbl_Randevular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Sekreter" EntityType="Self.Tbl_Sekreter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vDoktorlar" EntityType="Self.vDoktorlar" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vDoktorlar].[DoktorAdSoyad] AS [DoktorAdSoyad], 
+    [vDoktorlar].[DoktorTc] AS [DoktorTc], 
+    [vDoktorlar].[DoktorSifre] AS [DoktorSifre], 
+    [vDoktorlar].[BransAd] AS [BransAd], 
+    [vDoktorlar].[Doktorid] AS [Doktorid], 
+    [vDoktorlar].[MuaneSayisi] AS [MuaneSayisi], 
+    [vDoktorlar].[DoktorDurum] AS [DoktorDurum]
+    FROM [dbo].[vDoktorlar] AS [vDoktorlar]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vIlaclar" EntityType="Self.vIlaclar" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vIlaclar].[ilacid] AS [ilacid], 
+    [vIlaclar].[ilacAd] AS [ilacAd], 
+    [vIlaclar].[kayitid] AS [kayitid], 
+    [vIlaclar].[Randevuid] AS [Randevuid]
+    FROM [dbo].[vIlaclar] AS [vIlaclar]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vRandevu" EntityType="Self.vRandevu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRandevu].[DoktorAdSoyad] AS [DoktorAdSoyad], 
+    [vRandevu].[HastaAdSoyad] AS [HastaAdSoyad], 
+    [vRandevu].[Randevuid] AS [Randevuid], 
+    [vRandevu].[RandevuTarih] AS [RandevuTarih], 
+    [vRandevu].[RandevuSaat] AS [RandevuSaat], 
+    [vRandevu].[RandevuDurum] AS [RandevuDurum], 
+    [vRandevu].[BransAd] AS [BransAd], 
+    [vRandevu].[Doktorid] AS [Doktorid], 
+    [vRandevu].[Hastaid] AS [Hastaid], 
+    [vRandevu].[DoktorDurum] AS [DoktorDurum], 
+    [vRandevu].[HastaSikayet] AS [HastaSikayet], 
+    [vRandevu].[HastaTeshis] AS [HastaTeshis]
+    FROM [dbo].[vRandevu] AS [vRandevu]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Tbl_Doktorlar_Tbl_Branslar" Association="Self.FK_Tbl_Doktorlar_Tbl_Branslar">
+            <End Role="Tbl_Branslar" EntitySet="Tbl_Branslar" />
+            <End Role="Tbl_Doktorlar" EntitySet="Tbl_Doktorlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Kayitlar_Tbl_ilaclar" Association="Self.FK_Tbl_Kayitlar_Tbl_ilaclar">
+            <End Role="Tbl_ilaclar" EntitySet="Tbl_ilaclar" />
+            <End Role="Tbl_Kayitlar" EntitySet="Tbl_Kayitlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Kayitlar_Tbl_Randevular" Association="Self.FK_Tbl_Kayitlar_Tbl_Randevular">
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+            <End Role="Tbl_Kayitlar" EntitySet="Tbl_Kayitlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Randevular_Tbl_Doktorlar1" Association="Self.FK_Tbl_Randevular_Tbl_Doktorlar1">
+            <End Role="Tbl_Doktorlar" EntitySet="Tbl_Doktorlar" />
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Randevular_Tbl_Hastalar" Association="Self.FK_Tbl_Randevular_Tbl_Hastalar">
+            <End Role="Tbl_Hastalar" EntitySet="Tbl_Hastalar" />
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Randevular_Tbl_Sekreter" Association="Self.FK_Tbl_Randevular_Tbl_Sekreter">
+            <End Role="Tbl_Sekreter" EntitySet="Tbl_Sekreter" />
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HastaneProjeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HastaneProjeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="HastaneProjeModel.sysdiagrams" />
+          <EntitySet Name="Tbl_Branslar" EntityType="HastaneProjeModel.Tbl_Branslar" />
+          <EntitySet Name="Tbl_Doktorlar" EntityType="HastaneProjeModel.Tbl_Doktorlar" />
+          <EntitySet Name="Tbl_Hastalar" EntityType="HastaneProjeModel.Tbl_Hastalar" />
+          <EntitySet Name="Tbl_ilaclar" EntityType="HastaneProjeModel.Tbl_ilaclar" />
+          <EntitySet Name="Tbl_Kayitlar" EntityType="HastaneProjeModel.Tbl_Kayitlar" />
+          <EntitySet Name="Tbl_Randevular" EntityType="HastaneProjeModel.Tbl_Randevular" />
+          <EntitySet Name="Tbl_Sekreter" EntityType="HastaneProjeModel.Tbl_Sekreter" />
+          <EntitySet Name="vDoktorlar" EntityType="HastaneProjeModel.vDoktorlar" />
+          <EntitySet Name="vRandevu" EntityType="HastaneProjeModel.vRandevu" />
+          <AssociationSet Name="FK_Tbl_Doktorlar_Tbl_Branslar" Association="HastaneProjeModel.FK_Tbl_Doktorlar_Tbl_Branslar">
+            <End Role="Tbl_Branslar" EntitySet="Tbl_Branslar" />
+            <End Role="Tbl_Doktorlar" EntitySet="Tbl_Doktorlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Randevular_Tbl_Doktorlar1" Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Doktorlar1">
+            <End Role="Tbl_Doktorlar" EntitySet="Tbl_Doktorlar" />
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Randevular_Tbl_Hastalar" Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Hastalar">
+            <End Role="Tbl_Hastalar" EntitySet="Tbl_Hastalar" />
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Kayitlar_Tbl_ilaclar" Association="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_ilaclar">
+            <End Role="Tbl_ilaclar" EntitySet="Tbl_ilaclar" />
+            <End Role="Tbl_Kayitlar" EntitySet="Tbl_Kayitlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Kayitlar_Tbl_Randevular" Association="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_Randevular">
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+            <End Role="Tbl_Kayitlar" EntitySet="Tbl_Kayitlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Randevular_Tbl_Sekreter" Association="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Sekreter">
+            <End Role="Tbl_Sekreter" EntitySet="Tbl_Sekreter" />
+            <End Role="Tbl_Randevular" EntitySet="Tbl_Randevular" />
+          </AssociationSet>
+          <EntitySet Name="vIlaclar" EntityType="HastaneProjeModel.vIlaclar" />
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Branslar">
+          <Key>
+            <PropertyRef Name="Bransid" />
+          </Key>
+          <Property Name="Bransid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BransAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Doktorlar" Relationship="HastaneProjeModel.FK_Tbl_Doktorlar_Tbl_Branslar" FromRole="Tbl_Branslar" ToRole="Tbl_Doktorlar" />
+        </EntityType>
+        <EntityType Name="Tbl_Doktorlar">
+          <Key>
+            <PropertyRef Name="Doktorid" />
+          </Key>
+          <Property Name="Doktorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoktorAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Bransid" Type="Int32" />
+          <Property Name="DoktorTc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DoktorSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MuaneSayisi" Type="Int32" />
+          <Property Name="DoktorDurum" Type="Boolean" />
+          <NavigationProperty Name="Tbl_Branslar" Relationship="HastaneProjeModel.FK_Tbl_Doktorlar_Tbl_Branslar" FromRole="Tbl_Doktorlar" ToRole="Tbl_Branslar" />
+          <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Doktorlar1" FromRole="Tbl_Doktorlar" ToRole="Tbl_Randevular" />
+        </EntityType>
+        <EntityType Name="Tbl_Hastalar">
+          <Key>
+            <PropertyRef Name="Hastaid" />
+          </Key>
+          <Property Name="Hastaid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HastaAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HastaTc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="HastaTelefon" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="HastaSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HastaCinsiyet" Type="Byte" />
+          <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Hastalar" FromRole="Tbl_Hastalar" ToRole="Tbl_Randevular" />
+        </EntityType>
+        <EntityType Name="Tbl_ilaclar">
+          <Key>
+            <PropertyRef Name="ilacid" />
+          </Key>
+          <Property Name="ilacid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ilacAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Kayitlar" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_ilaclar" FromRole="Tbl_ilaclar" ToRole="Tbl_Kayitlar" />
+        </EntityType>
+        <EntityType Name="Tbl_Kayitlar">
+          <Key>
+            <PropertyRef Name="kayitid" />
+          </Key>
+          <Property Name="kayitid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Randevuid" Type="Int32" />
+          <Property Name="ilacid" Type="Int32" />
+          <NavigationProperty Name="Tbl_ilaclar" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_ilaclar" FromRole="Tbl_Kayitlar" ToRole="Tbl_ilaclar" />
+          <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_Randevular" FromRole="Tbl_Kayitlar" ToRole="Tbl_Randevular" />
+        </EntityType>
+        <EntityType Name="Tbl_Randevular">
+          <Key>
+            <PropertyRef Name="Randevuid" />
+          </Key>
+          <Property Name="Randevuid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RandevuTarih" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RandevuSaat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Doktorid" Type="Int32" />
+          <Property Name="RandevuDurum" Type="Boolean" />
+          <Property Name="Sekreterid" Type="Int32" />
+          <Property Name="Hastaid" Type="Int32" />
+          <Property Name="HastaSikayet" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="HastaTeshis" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Doktorlar" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Doktorlar1" FromRole="Tbl_Randevular" ToRole="Tbl_Doktorlar" />
+          <NavigationProperty Name="Tbl_Hastalar" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Hastalar" FromRole="Tbl_Randevular" ToRole="Tbl_Hastalar" />
+          <NavigationProperty Name="Tbl_Kayitlar" Relationship="HastaneProjeModel.FK_Tbl_Kayitlar_Tbl_Randevular" FromRole="Tbl_Randevular" ToRole="Tbl_Kayitlar" />
+          <NavigationProperty Name="Tbl_Sekreter" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Sekreter" FromRole="Tbl_Randevular" ToRole="Tbl_Sekreter" />
+        </EntityType>
+        <EntityType Name="Tbl_Sekreter">
+          <Key>
+            <PropertyRef Name="Sekreterid" />
+          </Key>
+          <Property Name="Sekreterid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SekreterAdSoyad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SekreterTc" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="SekreterSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Randevular" Relationship="HastaneProjeModel.FK_Tbl_Randevular_Tbl_Sekreter" FromRole="Tbl_Sekreter" ToRole="Tbl_Randevular" />
+        </EntityType>
+        <EntityType Name="vDoktorlar">
+          <Key>
+            <PropertyRef Name="Doktorid" />
+          </Key>
+          <Property Name="DoktorAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DoktorTc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DoktorSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BransAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Doktorid" Type="Int32" Nullable="false" />
+          <Property Name="MuaneSayisi" Type="Int32" />
+          <Property Name="DoktorDurum" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="vRandevu">
+          <Key>
+            <PropertyRef Name="Randevuid" />
+            <PropertyRef Name="Doktorid" />
+            <PropertyRef Name="Hastaid" />
+          </Key>
+          <Property Name="DoktorAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HastaAdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Randevuid" Type="Int32" Nullable="false" />
+          <Property Name="RandevuTarih" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RandevuSaat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RandevuDurum" Type="Boolean" />
+          <Property Name="BransAd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Doktorid" Type="Int32" Nullable="false" />
+          <Property Name="Hastaid" Type="Int32" Nullable="false" />
+          <Property Name="DoktorDurum" Type="Boolean" />
+          <Property Name="HastaSikayet" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="HastaTeshis" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Tbl_Doktorlar_Tbl_Branslar">
+          <End Type="HastaneProjeModel.Tbl_Branslar" Role="Tbl_Branslar" Multiplicity="0..1" />
+          <End Type="HastaneProjeModel.Tbl_Doktorlar" Role="Tbl_Doktorlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Branslar">
+              <PropertyRef Name="Bransid" />
+            </Principal>
+            <Dependent Role="Tbl_Doktorlar">
+              <PropertyRef Name="Bransid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Randevular_Tbl_Doktorlar1">
+          <End Type="HastaneProjeModel.Tbl_Doktorlar" Role="Tbl_Doktorlar" Multiplicity="0..1" />
+          <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Doktorlar">
+              <PropertyRef Name="Doktorid" />
+            </Principal>
+            <Dependent Role="Tbl_Randevular">
+              <PropertyRef Name="Doktorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Randevular_Tbl_Hastalar">
+          <End Type="HastaneProjeModel.Tbl_Hastalar" Role="Tbl_Hastalar" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Hastalar">
+              <PropertyRef Name="Hastaid" />
+            </Principal>
+            <Dependent Role="Tbl_Randevular">
+              <PropertyRef Name="Hastaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Kayitlar_Tbl_ilaclar">
+          <End Type="HastaneProjeModel.Tbl_ilaclar" Role="Tbl_ilaclar" Multiplicity="0..1" />
+          <End Type="HastaneProjeModel.Tbl_Kayitlar" Role="Tbl_Kayitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ilaclar">
+              <PropertyRef Name="ilacid" />
+            </Principal>
+            <Dependent Role="Tbl_Kayitlar">
+              <PropertyRef Name="ilacid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Kayitlar_Tbl_Randevular">
+          <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="0..1" />
+          <End Type="HastaneProjeModel.Tbl_Kayitlar" Role="Tbl_Kayitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Randevular">
+              <PropertyRef Name="Randevuid" />
+            </Principal>
+            <Dependent Role="Tbl_Kayitlar">
+              <PropertyRef Name="Randevuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Randevular_Tbl_Sekreter">
+          <End Type="HastaneProjeModel.Tbl_Sekreter" Role="Tbl_Sekreter" Multiplicity="0..1" />
+          <End Type="HastaneProjeModel.Tbl_Randevular" Role="Tbl_Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Sekreter">
+              <PropertyRef Name="Sekreterid" />
+            </Principal>
+            <Dependent Role="Tbl_Randevular">
+              <PropertyRef Name="Sekreterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vIlaclar">
+          <Key>
+            <PropertyRef Name="ilacid" />
+            <PropertyRef Name="kayitid" />
+          </Key>
+          <Property Name="ilacid" Type="Int32" Nullable="false" />
+          <Property Name="ilacAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="kayitid" Type="Int32" Nullable="false" />
+          <Property Name="Randevuid" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HastaneProjeModelStoreContainer" CdmEntityContainer="HastaneProjeEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HastaneProjeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Branslar">
+            <EntityTypeMapping TypeName="HastaneProjeModel.Tbl_Branslar">
+              <MappingFragment StoreEntitySet="Tbl_Branslar">
+                <ScalarProperty Name="BransAd" ColumnName="BransAd" />
+                <ScalarProperty Name="Bransid" ColumnName="Bransid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Doktorlar">
+            <EntityTypeMapping TypeName="HastaneProjeModel.Tbl_Doktorlar">
+              <MappingFragment StoreEntitySet="Tbl_Doktorlar">
+                <ScalarProperty Name="DoktorDurum" ColumnName="DoktorDurum" />
+                <ScalarProperty Name="MuaneSayisi" ColumnName="MuaneSayisi" />
+                <ScalarProperty Name="DoktorSifre" ColumnName="DoktorSifre" />
+                <ScalarProperty Name="DoktorTc" ColumnName="DoktorTc" />
+                <ScalarProperty Name="Bransid" ColumnName="Bransid" />
+                <ScalarProperty Name="DoktorAdSoyad" ColumnName="DoktorAdSoyad" />
+                <ScalarProperty Name="Doktorid" ColumnName="Doktorid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Hastalar">
+            <EntityTypeMapping TypeName="HastaneProjeModel.Tbl_Hastalar">
+              <MappingFragment StoreEntitySet="Tbl_Hastalar">
+                <ScalarProperty Name="HastaCinsiyet" ColumnName="HastaCinsiyet" />
+                <ScalarProperty Name="HastaSifre" ColumnName="HastaSifre" />
+                <ScalarProperty Name="HastaTelefon" ColumnName="HastaTelefon" />
+                <ScalarProperty Name="HastaTc" ColumnName="HastaTc" />
+                <ScalarProperty Name="HastaAdSoyad" ColumnName="HastaAdSoyad" />
+                <ScalarProperty Name="Hastaid" ColumnName="Hastaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ilaclar">
+            <EntityTypeMapping TypeName="HastaneProjeModel.Tbl_ilaclar">
+              <MappingFragment StoreEntitySet="Tbl_ilaclar">
+                <ScalarProperty Name="ilacAd" ColumnName="ilacAd" />
+                <ScalarProperty Name="ilacid" ColumnName="ilacid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Kayitlar">
+            <EntityTypeMapping TypeName="HastaneProjeModel.Tbl_Kayitlar">
+              <MappingFragment StoreEntitySet="Tbl_Kayitlar">
+                <ScalarProperty Name="ilacid" ColumnName="ilacid" />
+                <ScalarProperty Name="Randevuid" ColumnName="Randevuid" />
+                <ScalarProperty Name="kayitid" ColumnName="kayitid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Randevular">
+            <EntityTypeMapping TypeName="HastaneProjeModel.Tbl_Randevular">
+              <MappingFragment StoreEntitySet="Tbl_Randevular">
+                <ScalarProperty Name="HastaTeshis" ColumnName="HastaTeshis" />
+                <ScalarProperty Name="HastaSikayet" ColumnName="HastaSikayet" />
+                <ScalarProperty Name="Hastaid" ColumnName="Hastaid" />
+                <ScalarProperty Name="Sekreterid" ColumnName="Sekreterid" />
+                <ScalarProperty Name="RandevuDurum" ColumnName="RandevuDurum" />
+                <ScalarProperty Name="Doktorid" ColumnName="Doktorid" />
+                <ScalarProperty Name="RandevuSaat" ColumnName="RandevuSaat" />
+                <ScalarProperty Name="RandevuTarih" ColumnName="RandevuTarih" />
+                <ScalarProperty Name="Randevuid" ColumnName="Randevuid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Sekreter">
+            <EntityTypeMapping TypeName="HastaneProjeModel.Tbl_Sekreter">
+              <MappingFragment StoreEntitySet="Tbl_Sekreter">
+                <ScalarProperty Name="SekreterSifre" ColumnName="SekreterSifre" />
+                <ScalarProperty Name="SekreterTc" ColumnName="SekreterTc" />
+                <ScalarProperty Name="SekreterAdSoyad" ColumnName="SekreterAdSoyad" />
+                <ScalarProperty Name="Sekreterid" ColumnName="Sekreterid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vDoktorlar">
+            <EntityTypeMapping TypeName="HastaneProjeModel.vDoktorlar">
+              <MappingFragment StoreEntitySet="vDoktorlar">
+                <ScalarProperty Name="DoktorDurum" ColumnName="DoktorDurum" />
+                <ScalarProperty Name="MuaneSayisi" ColumnName="MuaneSayisi" />
+                <ScalarProperty Name="Doktorid" ColumnName="Doktorid" />
+                <ScalarProperty Name="BransAd" ColumnName="BransAd" />
+                <ScalarProperty Name="DoktorSifre" ColumnName="DoktorSifre" />
+                <ScalarProperty Name="DoktorTc" ColumnName="DoktorTc" />
+                <ScalarProperty Name="DoktorAdSoyad" ColumnName="DoktorAdSoyad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRandevu">
+            <EntityTypeMapping TypeName="HastaneProjeModel.vRandevu">
+              <MappingFragment StoreEntitySet="vRandevu">
+                <ScalarProperty Name="HastaTeshis" ColumnName="HastaTeshis" />
+                <ScalarProperty Name="HastaSikayet" ColumnName="HastaSikayet" />
+                <ScalarProperty Name="DoktorDurum" ColumnName="DoktorDurum" />
+                <ScalarProperty Name="Hastaid" ColumnName="Hastaid" />
+                <ScalarProperty Name="Doktorid" ColumnName="Doktorid" />
+                <ScalarProperty Name="BransAd" ColumnName="BransAd" />
+                <ScalarProperty Name="RandevuDurum" ColumnName="RandevuDurum" />
+                <ScalarProperty Name="RandevuSaat" ColumnName="RandevuSaat" />
+                <ScalarProperty Name="RandevuTarih" ColumnName="RandevuTarih" />
+                <ScalarProperty Name="Randevuid" ColumnName="Randevuid" />
+                <ScalarProperty Name="HastaAdSoyad" ColumnName="HastaAdSoyad" />
+                <ScalarProperty Name="DoktorAdSoyad" ColumnName="DoktorAdSoyad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vIlaclar">
+            <EntityTypeMapping TypeName="HastaneProjeModel.vIlaclar">
+              <MappingFragment StoreEntitySet="vIlaclar">
+                <ScalarProperty Name="Randevuid" ColumnName="Randevuid" />
+                <ScalarProperty Name="kayitid" ColumnName="kayitid" />
+                <ScalarProperty Name="ilacAd" ColumnName="ilacAd" />
+                <ScalarProperty Name="ilacid" ColumnName="ilacid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
