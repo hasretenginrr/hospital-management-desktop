@@ -8,6 +8,13 @@ A C# Windows Forms application for managing hospital-related records: doctors, p
 
 The interface is in Turkish. This is an educational desktop project, not a web application or a production-ready clinical system. Use synthetic test data only.
 
+<img width="1209" height="484" alt="Ekran görüntüsü 2024-08-26 094231" src="https://github.com/user-attachments/assets/40e0d3b4-3eaf-4dde-848f-32a41dddd9e1" />
+<img width="1162" height="669" alt="Ekran görüntüsü 2024-08-26 094318" src="https://github.com/user-attachments/assets/ff348fb1-d086-43fd-af9b-185ebf6145d9" />
+<img width="926" height="648" alt="Ekran görüntüsü 2024-08-25 223756" src="https://github.com/user-attachments/assets/dea93969-3644-4a94-bd7f-63dd373a932d" />
+<img width="534" height="120" alt="Ekran görüntüsü 2024-08-26 082545" src="https://github.com/user-attachments/assets/804fcb00-bf17-43c0-804a-62eff2b8f68d" />
+
+
+
 ## Technology Stack
 
 | Technology | Purpose |
